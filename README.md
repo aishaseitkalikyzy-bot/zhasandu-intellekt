@@ -1,2 +1,2 @@
 # zhasandu-intellekt
-жасанды интеллект
+index.html
