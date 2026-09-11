@@ -1,0 +1,2 @@
+# zhasandu-intellekt
+жасанды интеллект
