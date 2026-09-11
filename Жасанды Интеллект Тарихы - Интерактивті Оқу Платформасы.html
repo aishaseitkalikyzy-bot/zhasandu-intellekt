@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<!-- saved from url=(0088)file:///C:/Users/%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/Downloads/gemini-code-1789102535042.html -->
+<html lang="kk"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Жасанды Интеллект Тарихы - Интерактивті Оқу Платформасы</title>
+    <link href="./Жасанды Интеллект Тарихы - Интерактивті Оқу Платформасы_files/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --accent: #10b981;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: #60a5fa;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav button {
+            padding: 1rem 1.5rem;
+            border: none;
+            background: none;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav button:hover, nav button.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #eff6ff;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Timeline Style */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 3px solid var(--primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.4rem;
+            top: 0.2rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid white;
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* Term Cards */
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .term-card {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        .term-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Table Style */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: var(--text);
+        }
+
+        /* Quiz Style */
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .quiz-option:hover {
+            background: #e2e8f0;
+        }
+
+        .quiz-option.correct {
+            background: #d1fae5 !important;
+            border-color: #10b981 !important;
+            color: #065f46;
+            font-weight: bold;
+        }
+
+        .quiz-option.wrong {
+            background: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #991b1b;
+        }
+
+        .explanation {
+            margin-top: 0.5rem;
+            padding: 0.75rem;
+            background: #f0f9ff;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Accordion for Open Questions */
+        .accordion {
+            background-color: #f1f5f9;
+            color: var(--text);
+            cursor: pointer;
+            padding: 1rem;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: 0.4s;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+        }
+
+        .active-acc, .accordion:hover {
+            background-color: #e2e8f0;
+        }
+
+        .panel {
+            padding: 1rem;
+            display: none;
+            background-color: white;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 0 0 6px 6px;
+        }
+
+        @media(max-width: 600px) {
+            nav {
+                flex-wrap: wrap;
+            }
+            nav button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fas fa-brain"></i> Жасанды Интеллект Тарихы</h1>
+        <p>Интерактивті оқу және білім тексеру платформасы</p>
+    </header>
+
+    <nav>
+        <button class="nav-btn" onclick="showTab(&#39;theory&#39;)"><i class="fas fa-book-open"></i> Теория</button>
+        <button class="nav-btn" onclick="showTab(&#39;timeline&#39;)"><i class="fas fa-stream"></i> Уақыт сызығы</button>
+        <button class="nav-btn" onclick="showTab(&#39;table&#39;)"><i class="fas fa-table"></i> Эволюция</button>
+        <button class="nav-btn" onclick="showTab(&#39;quiz&#39;)"><i class="fas fa-tasks"></i> Тест</button>
+        <button class="nav-btn active" onclick="showTab(&#39;open-q&#39;)"><i class="fas fa-comment-dots"></i> Түйінді сұрақтар</button>
+    </nav>
+
+    <div class="container">
+
+        <!-- 1. ТЕОРИЯ ЖӘНЕ ТЕРМИНДЕР -->
+        <div id="theory" class="tab-content">
+            <div class="card">
+                <h2>ЖИ дамуының негізгі шолуы</h2>
+                <p>Жасанды интеллекттің (ЖИ) тарихы 1950-ші жылдардан бастау алады. 1948 жылы Алан Тьюринг «Интеллектуалды машиналар» баяндамасын жариялап, машиналық оқытудың негізін қалады. 1950 жылы ол Тьюринг тестін ұсынды, ал 1956 жылы Дартмут семинарында «жасанды интеллект» термині алғаш рет ресми енгізілді.</p>
+                <br>
+                <p>Кейінірек 1970 ж. және 1990 ж. басында есептеуіш қуат пен қаржыландырудың азаюына байланысты <strong>«ЖИ қысы» (AI Winter)</strong> орын алды. 2010 жылдардан бастап <strong>Үлкен деректер (Big Data)</strong> мен <strong>GPU (Графикалық процессорлар)</strong> арқасында ЖИ жаңа серпіліске ие болды.</p>
+            </div>
+
+            <div class="card">
+                <h2>Негізгі терминдер</h2>
+                <div class="terms-grid">
+                    <div class="term-card">
+                        <h3>Тьюринг тесті</h3>
+                        <p>Машинаның адам сияқты ойлау қабілетін тексеруге арналған әдіс.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>ЖИ қысы (AI Winter)</h3>
+                        <p>Зерттеулерді қаржыландыру мен қызығушылықтың төмендеген дағдарыс кезеңі.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>GPU (Графикалық процессор)</h3>
+                        <p>Деректерді жоғары жылдамдықпен параллель өңдеуге арналған есептеуіш қуат.</p>
+                    </div>
+                    <div class="term-card">
+                        <h3>Transformer</h3>
+                        <p>2017 жылы Google ұсынған, ChatGPT сияқты ірі тілдік модельдердің негізі болған архитектура.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. УАҚЫТ СЫЗЫҒЫ (TIMELINE) -->
+        <div id="timeline" class="tab-content">
+            <div class="card">
+                <h2>ЖИ Тарихының Уақыт Сызығы</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">1948 - 1950 жылдар</div>
+                        <p><strong>Алан Тьюринг</strong> «Интеллектуалды машиналар» баяндамасын жазып, 1950 жылы «Тьюринг тестін» ұсынды.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1956 жыл</div>
+                        <p><strong>Дартмут семинары:</strong> «Жасанды интеллект» термині алғаш рет ресми қолданысқа енгізілді. Logic Theorist бағдарламасы жасалды.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1970 - 1990 жж. басы</div>
+                        <p><strong>ЖИ қысы (AI Winter):</strong> Есептеуіш қуаттың жетіспеушілігінен қаржыландыру тоқтатылып, дағдарыс орын алды.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1980 - 1989 жылдар</div>
+                        <p>Сараптамалық жүйелер (Expert Systems) пайда болды. 1989 жылы MOS VLSI технологиясы нейрондық желілерді дамытты.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2012 жыл</div>
+                        <p><strong>AlexNet жеңісі:</strong> Алекс Крижевский GPU арқылы ImageNet жарысында жеңіп, Терең оқытудың (Deep Learning) тиімділігін дәлелдеді.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2017 жыл</div>
+                        <p>Google зерттеушілері <strong>Transformer</strong> архитектурасын ұсынды.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2022 жыл</div>
+                        <p>OpenAI компаниясы <strong>ChatGPT</strong> чат-ботын көпшілікке ұсынды.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. ЭВОЛЮЦИЯ КЕСТЕСІ -->
+        <div id="table" class="tab-content">
+            <div class="card">
+                <h2>Технологиялар мен деректердің эволюциясы</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Кезең</th>
+                            <th>Негізгі технологиялар</th>
+                            <th>Деректер көлемі</th>
+                            <th>Нәтижесі</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1950-1960 жж.</strong><br>(Бастапқы кезең)</td>
+                            <td>Тьюринг тесті, Logic Theorist, Алғашқы алгоритмдер</td>
+                            <td>Төмен</td>
+                            <td>Логикалық есептерді шешудің мүмкін екендігі дәлелденді.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1980-1990 жж.</strong><br>(Жүйелердің өрлеуі)</td>
+                            <td>Сараптамалық жүйелер (Expert Systems), MOS VLSI микросхемалары</td>
+                            <td>Орташа</td>
+                            <td>Нейрондық желілерді практикада қолдануға алғашқы қадам жасалды.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2010 ж. - қазіргі уақыт</strong><br>(Қазіргі дәуір)</td>
+                            <td>GPU, AlexNet, Transformer, Терең оқыту (Deep Learning)</td>
+                            <td>Жоғары (Big Data)</td>
+                            <td>ChatGPT, заманауи LLM, кескіндер мен мәтінді жоғары дәлдікпен өңдеу.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 4. ИНТЕРАКТИВТІ ТЕСТ -->
+        <div id="quiz" class="tab-content">
+            <div class="card">
+                <h2>ЖИ тарихы бойынша интерактивті тест</h2>
+                <div id="quiz-container"><div style="margin-bottom: 1.5rem;"><p><strong>1. 1948 жылы «Интеллектуалды машиналар» баяндамасын кім жариялады?</strong></p><button class="quiz-option opt-0" disabled="">Алекс Крижевский</button><button class="quiz-option opt-0 correct" disabled="">Алан Тьюринг</button><button class="quiz-option opt-0" disabled="">Джон Маккарти</button><button class="quiz-option opt-0" disabled="">Герберт Саймон</button><div id="exp-0" class="explanation" style="display: block;">Негіздеме: 1948 жылы Алан Тьюринг баяндама жариялап, ЖИ-дің логикалық және машиналық оқыту негізін қалады.</div></div><div style="margin-bottom: 1.5rem;"><p><strong>2. «Жасанды интеллект» термині ресми түрде қай жылы және қай жерде енгізілді?</strong></p><button class="quiz-option opt-1" disabled="">1950 жылы, Тьюринг тесті кезінде</button><button class="quiz-option opt-1 correct" disabled="">1956 жылы, Дартмут семинарында</button><button class="quiz-option opt-1" disabled="">2012 жылы, ImageNet жарысында</button><button class="quiz-option opt-1" disabled="">1989 жылы, VLSI технологиясы шыққанда</button><div id="exp-1" class="explanation" style="display: block;">Негіздеме: Джон Маккарти пен әріптестері 1956 жылы Дартмут семинарында терминді ресми қолданысқа енгізді.</div></div><div style="margin-bottom: 1.5rem;"><p><strong>3. Алғашқы ЖИ бағдарламасы деп есептелетін жүйе қалай аталды?</strong></p><button class="quiz-option opt-2" disabled="">ChatGPT</button><button class="quiz-option opt-2" disabled="">Transformer</button><button class="quiz-option opt-2" disabled="">AlexNet</button><button class="quiz-option opt-2 correct" disabled="">Logic Theorist</button><div id="exp-2" class="explanation" style="display: block;">Негіздеме: Logic Theorist — автоматты түрде логикалық қорытынды жасауға арналған алғашқы бағдарлама.</div></div><div style="margin-bottom: 1.5rem;"><p><strong>4. 1980-ші жылдары нейрондық желілерді іс жүзінде қолдануға мүмкіндік берген технология қандай?</strong></p><button class="quiz-option opt-3 correct" disabled="">MOS VLSI (өте үлкен интегралдық схемалар)</button><button class="quiz-option opt-3" disabled="">Бұлтты есептеулер</button><button class="quiz-option opt-3" disabled="">Генеративті модельдер</button><button class="quiz-option opt-3" disabled="">Тьюринг машинасы</button><div id="exp-3" class="explanation" style="display: block;">Негіздеме: MOS VLSI дамуы нейрондық желілерді аппараттық деңгейде іске асыруға мүмкіндік берді.</div></div><div style="margin-bottom: 1.5rem;"><p><strong>5. 2012 жылы AlexNet моделінің жеңіске жетуі неліктен бетбұрыс кезеңі болды?</strong></p><button class="quiz-option opt-4 correct" disabled="" style="background: rgb(203, 213, 225); font-weight: bold;">Ол GPU көмегімен терең оқытудың тиімділігін дәлелдеді</button><button class="quiz-option opt-4" disabled="" style="background: rgb(248, 250, 252); font-weight: normal;">Ол алғашқы сараптамалық жүйе болды</button><button class="quiz-option opt-4" disabled="" style="background: rgb(248, 250, 252); font-weight: normal;">Ол логикалық есептерді шешуді тоқтатты</button><button class="quiz-option opt-4" disabled="" style="background: rgb(248, 250, 252); font-weight: normal;">Ол алғаш рет Тьюринг тестінен өтті</button><div id="exp-4" class="explanation" style="display: block;">Негіздеме: AlexNet GPU мен терең нейрондық желілердің үлкен мүмкіндігін дәлелдеп берді.</div></div><div style="margin-bottom: 1.5rem;"><p><strong>6. Қазіргі ChatGPT сияқты ірі тілдік модельдердің негізгі архитектурасы қалай аталады?</strong></p><button class="quiz-option opt-5 wrong" disabled="" style="background: rgb(203, 213, 225); font-weight: bold;">Expert Systems</button><button class="quiz-option opt-5" disabled="" style="background: rgb(248, 250, 252); font-weight: normal;">Logic Theorist</button><button class="quiz-option opt-5" disabled="" style="background: rgb(248, 250, 252); font-weight: normal;">Backpropagation</button><button class="quiz-option opt-5 correct" disabled="" style="background: rgb(248, 250, 252); font-weight: normal;">Transformer</button><div id="exp-5" class="explanation" style="display: block;">Негіздеме: 2017 жылы ұсынылған Transformer архитектурасы барлық қазіргі LLM негізі болып табылады.</div></div><div style="margin-bottom: 1.5rem;"><p><strong>7. OpenAI компаниясы ChatGPT чат-ботын көпшілікке қай жылы ұсынды?</strong></p><button class="quiz-option opt-6" disabled="" style="background: rgb(248, 250, 252); font-weight: normal;">2017 ж.</button><button class="quiz-option opt-6 wrong" disabled="" style="background: rgb(203, 213, 225); font-weight: bold;">2012 ж.</button><button class="quiz-option opt-6 correct" disabled="" style="background: rgb(248, 250, 252); font-weight: normal;">2022 ж.</button><button class="quiz-option opt-6" disabled="" style="background: rgb(248, 250, 252); font-weight: normal;">1990 ж.</button><div id="exp-6" class="explanation" style="display: block;">Негіздеме: ChatGPT 2022 жылдың 30 қарашасында іске қосылды.</div></div></div>
+                <button class="btn" onclick="calculateScore()">Нәтижені тексеру</button>
+                <div id="quiz-result" style="margin-top: 1rem; font-size: 1.2rem; font-weight: bold; color: rgb(239, 68, 68);">Сіздің нәтижеңіз: 1 / 7</div>
+            </div>
+        </div>
+
+        <!-- 5. АШЫҚ СҰРАҚТАР МЕН ЖАУАПТАР -->
+        <div id="open-q" class="tab-content active">
+            <div class="card">
+                <h2>Талдау және Ашық сұрақтар (Жауап кілтімен)</h2>
+                <p>Сұрақтың жауабын көру үшін үстінен басыңыз:</p>
+                <br>
+
+                <button class="accordion">1. «ЖИ қысы» (AI Winter) кезеңдерінің туындауына қандай факторлар әсер етті?</button>
+                <div class="panel">
+                    <p><strong>Жауап:</strong> «ЖИ қысы» негізінен екі фактордан болды: үміттердің ақталмауы және есептеуіш қуаттың шектеулілігі. 1970-ші және 1990-шы жылдары ЖИ-ден күтілген нәтижелер сол кездегі қарапайым процессорлардың мүмкіндіктерінен асып түсті. Нәтижесінде мемлекеттік және жеке қорлар қаржыландыруды тоқтатты.</p>
+                </div>
+
+                <button class="accordion">2. Заманауи «Үлкен деректер» (Big Data) дәуірі ЖИ-дің бұрынғы шектеулерін қалай шешті?</button>
+                <div class="panel">
+                    <p><strong>Жауап:</strong> Бұрынғы ЖИ модельдері деректердің аздығынан дұрыс «үйрене» алмайтын. Big Data дәуірі алгоритмдерге миллиондаған мысалдарды (мәтін, сурет) өңдеуге мүмкіндік берді. Деректер неғұрлым көп болса, нейрондық желілер соғұрлым дәл жұмыс істейді.</p>
+                </div>
+
+                <button class="accordion">3. GPU мен MOS VLSI технологияларының рөлін салыстырыңыз.</button>
+                <div class="panel">
+                    <p><strong>Жауап:</strong> MOS VLSI (1980 ж.) нейрондық желілерді аппараттық деңгейде іске асыруға жол ашты. Ал GPU (2010 ж.) параллельді есептеулер арқылы миллиардтаған параметрлері бар терең оқыту модельдерін (AlexNet, GPT) жаттықтыруды мүмкін етті. Таза CPU мұндай есептеулерді жылдар бойы орындайтын еді.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Tab switching logic
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Quiz Data
+        const quizData = [
+            {
+                q: "1. 1948 жылы «Интеллектуалды машиналар» баяндамасын кім жариялады?",
+                options: ["Алекс Крижевский", "Алан Тьюринг", "Джон Маккарти", "Герберт Саймон"],
+                correct: 1,
+                exp: "Негіздеме: 1948 жылы Алан Тьюринг баяндама жариялап, ЖИ-дің логикалық және машиналық оқыту негізін қалады."
+            },
+            {
+                q: "2. «Жасанды интеллект» термині ресми түрде қай жылы және қай жерде енгізілді?",
+                options: ["1950 жылы, Тьюринг тесті кезінде", "1956 жылы, Дартмут семинарында", "2012 жылы, ImageNet жарысында", "1989 жылы, VLSI технологиясы шыққанда"],
+                correct: 1,
+                exp: "Негіздеме: Джон Маккарти пен әріптестері 1956 жылы Дартмут семинарында терминді ресми қолданысқа енгізді."
+            },
+            {
+                q: "3. Алғашқы ЖИ бағдарламасы деп есептелетін жүйе қалай аталды?",
+                options: ["ChatGPT", "Transformer", "AlexNet", "Logic Theorist"],
+                correct: 3,
+                exp: "Негіздеме: Logic Theorist — автоматты түрде логикалық қорытынды жасауға арналған алғашқы бағдарлама."
+            },
+            {
+                q: "4. 1980-ші жылдары нейрондық желілерді іс жүзінде қолдануға мүмкіндік берген технология қандай?",
+                options: ["MOS VLSI (өте үлкен интегралдық схемалар)", "Бұлтты есептеулер", "Генеративті модельдер", "Тьюринг машинасы"],
+                correct: 0,
+                exp: "Негіздеме: MOS VLSI дамуы нейрондық желілерді аппараттық деңгейде іске асыруға мүмкіндік берді."
+            },
+            {
+                q: "5. 2012 жылы AlexNet моделінің жеңіске жетуі неліктен бетбұрыс кезеңі болды?",
+                options: ["Ол GPU көмегімен терең оқытудың тиімділігін дәлелдеді", "Ол алғашқы сараптамалық жүйе болды", "Ол логикалық есептерді шешуді тоқтатты", "Ол алғаш рет Тьюринг тестінен өтті"],
+                correct: 0,
+                exp: "Негіздеме: AlexNet GPU мен терең нейрондық желілердің үлкен мүмкіндігін дәлелдеп берді."
+            },
+            {
+                q: "6. Қазіргі ChatGPT сияқты ірі тілдік модельдердің негізгі архитектурасы қалай аталады?",
+                options: ["Expert Systems", "Logic Theorist", "Backpropagation", "Transformer"],
+                correct: 3,
+                exp: "Негіздеме: 2017 жылы ұсынылған Transformer архитектурасы барлық қазіргі LLM негізі болып табылады."
+            },
+            {
+                q: "7. OpenAI компаниясы ChatGPT чат-ботын көпшілікке қай жылы ұсынды?",
+                options: ["2017 ж.", "2012 ж.", "2022 ж.", "1990 ж."],
+                correct: 2,
+                exp: "Негіздеме: ChatGPT 2022 жылдың 30 қарашасында іске қосылды."
+            }
+        ];
+
+        // Render Quiz
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            quizData.forEach((qData, qIndex) => {
+                const qDiv = document.createElement('div');
+                qDiv.style.marginBottom = '1.5rem';
+                qDiv.innerHTML = `<p><strong>${qData.q}</strong></p>`;
+
+                qData.options.forEach((opt, oIndex) => {
+                    const btn = document.createElement('button');
+                    btn.className = `quiz-option opt-${qIndex}`;
+                    btn.innerText = opt;
+                    btn.onclick = () => selectOption(qIndex, oIndex);
+                    qDiv.appendChild(btn);
+                });
+
+                const expDiv = document.createElement('div');
+                expDiv.id = `exp-${qIndex}`;
+                expDiv.className = 'explanation';
+                expDiv.innerText = qData.exp;
+                qDiv.appendChild(expDiv);
+
+                container.appendChild(qDiv);
+            });
+        }
+
+        let userAnswers = {};
+
+        function selectOption(qIndex, oIndex) {
+            userAnswers[qIndex] = oIndex;
+            const buttons = document.querySelectorAll(`.opt-${qIndex}`);
+            buttons.forEach((btn, idx) => {
+                if(idx === oIndex) {
+                    btn.style.background = '#cbd5e1';
+                    btn.style.fontWeight = 'bold';
+                } else {
+                    btn.style.background = '#f8fafc';
+                    btn.style.fontWeight = 'normal';
+                }
+            });
+        }
+
+        function calculateScore() {
+            let score = 0;
+            quizData.forEach((qData, qIndex) => {
+                const buttons = document.querySelectorAll(`.opt-${qIndex}`);
+                const exp = document.getElementById(`exp-${qIndex}`);
+                exp.style.display = 'block';
+
+                buttons.forEach((btn, oIndex) => {
+                    btn.disabled = true;
+                    if (oIndex === qData.correct) {
+                        btn.classList.add('correct');
+                    }
+                    if (userAnswers[qIndex] === oIndex && oIndex !== qData.correct) {
+                        btn.classList.add('wrong');
+                    }
+                });
+
+                if (userAnswers[qIndex] === qData.correct) {
+                    score++;
+                }
+            });
+
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.innerText = `Сіздің нәтижеңіз: ${score} / ${quizData.length}`;
+            resultDiv.style.color = score >= 5 ? '#10b981' : '#ef4444';
+        }
+
+        // Accordion script
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuiz();
+
+            const acc = document.getElementsByClassName("accordion");
+            for (let i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function() {
+                    this.classList.toggle("active-acc");
+                    const panel = this.nextElementSibling;
+                    if (panel.style.display === "block") {
+                        panel.style.display = "none";
+                    } else {
+                        panel.style.display = "block";
+                    }
+                });
+            }
+        });
+    </script>
+
+</body></html>
